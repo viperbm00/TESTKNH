@@ -38,7 +38,6 @@ class NutritionFactsFragment : Fragment()
 
     var nowDate : LocalDate = LocalDate.now()
 
-
     var nfArray = ArrayList<NutritionFacts>()
     var fnameArray = ArrayList<String>()
 
