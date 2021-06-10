@@ -11,7 +11,7 @@ import java.time.LocalDate
 class NutritionFactsDBHelper(val context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION)
 {
     companion object{
-        val DB_NAME = "NutritionFacts.db"
+        val DB_NAME = "nutritionFacts.db"
         val DB_VERSION = 1
         val TABLE_NAME_NFRECORD = "nutritionfactsRecord"
         val TABLE_NAME_NUTRITIONFACTS = "nutritionfacts"
@@ -162,34 +162,6 @@ class NutritionFactsDBHelper(val context:Context) : SQLiteOpenHelper(context, DB
         return result
     }
 
-    fun setNFList(list : ArrayList<NutritionFacts>)
-    {
-        list.clear()
-
-        val strsql = "select * from $TABLE_NAME_NUTRITIONFACTS;"
-        val db = readableDatabase
-        val cursor = db.rawQuery(strsql, null)
-        if(cursor.count!=0)
-        {
-            cursor.moveToFirst()
-            //레코드 추가하기
-            do{
-                val fid = cursor.getInt(0)
-                val fname = cursor.getString(1)
-                val carb = cursor.getDouble(2)
-                val protein = cursor.getDouble(3)
-                val fat = cursor.getDouble(4)
-                val pergram = cursor.getDouble(5)
-                val kcal = cursor.getDouble(6)
-
-                list.add(NutritionFacts(fid, fname, carb, protein, fat, pergram, kcal))
-                Log.i("NF_db", cursor.getInt(0).toString() + "/" + cursor.getString(1))
-            }while (cursor.moveToNext())
-        }
-        cursor.close()
-        db.close()
-    }
-
     fun insertRecord(record: NutritionFactsRecord):Boolean
     {
         val values = ContentValues()
@@ -260,6 +232,36 @@ class NutritionFactsDBHelper(val context:Context) : SQLiteOpenHelper(context, DB
                 val intake = cursor.getInt(2)
 
                 list.add(NutritionFactsRecord(recordtime, nutritionFacts!!, intake))
+            }while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+
+        return list
+    }
+
+    fun getAllNutritionFacts() : ArrayList<NutritionFacts>
+    {
+        val strsql = "select * from $TABLE_NAME_NUTRITIONFACTS;"
+        val db = readableDatabase
+        val cursor = db.rawQuery(strsql, null)
+        var list = ArrayList<NutritionFacts>()
+
+        if(cursor.count!=0)
+        {
+            cursor.moveToFirst()
+            //레코드 추가하기
+            do{
+                val fid = cursor.getInt(0)
+                val fname = cursor.getString(1)
+                val carb = cursor.getDouble(2)
+                val protein = cursor.getDouble(3)
+                val fat = cursor.getDouble(4)
+                val pergram = cursor.getDouble(5)
+                val kcal = cursor.getDouble(6)
+
+                list.add(NutritionFacts(fid, fname, carb, protein, fat, pergram, kcal))
+                Log.i("NF_db", cursor.getInt(0).toString() + "/" + cursor.getString(1))
             }while (cursor.moveToNext())
         }
         cursor.close()

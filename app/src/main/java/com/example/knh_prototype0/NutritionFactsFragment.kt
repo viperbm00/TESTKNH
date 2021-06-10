@@ -71,7 +71,7 @@ class NutritionFactsFragment : Fragment()
     {
         NFDBHelper = NutritionFactsDBHelper(requireActivity())
 
-        val dbfile = requireActivity().getDatabasePath("NutritionFacts.db")
+        val dbfile = requireActivity().getDatabasePath("nutritionFacts.db")
 
         if(!dbfile.parentFile.exists())
         {
@@ -80,7 +80,7 @@ class NutritionFactsFragment : Fragment()
 
         if(!dbfile.exists())
         {
-            val file = resources.openRawResource(R.raw)
+            val file = resources.openRawResource(R.raw.nutritionfacts)
             val fileSize = file.available()
             val buffer = ByteArray(fileSize)
 
@@ -91,6 +91,13 @@ class NutritionFactsFragment : Fragment()
             val output = FileOutputStream(dbfile)
             output.write(buffer)
             output.close()
+        }
+
+        nfArray = NFDBHelper.getAllNutritionFacts()
+
+        for(item in nfArray)
+        {
+            fnameArray.add(item.fname)
         }
     }
 
@@ -198,7 +205,7 @@ class NutritionFactsFragment : Fragment()
             //adapter for NutritionFacts RecyclerView
             NFRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             NFRecyclerView.addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.VERTICAL))
-            NFDBHelper.setNFList(nfArray)
+            nfArray = NFDBHelper.getAllNutritionFacts()
             initNFAdapter(nfArray)
 
             //adapter for NutritionFacts Records RecyclerView
@@ -211,7 +218,7 @@ class NutritionFactsFragment : Fragment()
             fnameEditText.addTextChangedListener {
                 if(it!!.isEmpty())
                 {
-                    NFDBHelper.setNFList(nfArray)
+                    nfArray = NFDBHelper.getAllNutritionFacts()
                     settingFnameArray(nfArray)
                     initNFAdapter(nfArray)
                 }

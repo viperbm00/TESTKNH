@@ -218,4 +218,32 @@ class ExerciseDBHelper(val context:Context) : SQLiteOpenHelper(context, DB_NAME,
 
         return list
     }
+
+    fun getAllExercise() : ArrayList<Exercise>
+    {
+        val strsql = "select * from $TABLE_NAME_EXERCISE;"
+        val db = readableDatabase
+        val cursor = db.rawQuery(strsql, null)
+
+        var list = ArrayList<Exercise>()
+
+        if(cursor.count!=0)
+        {
+            cursor.moveToFirst()
+
+            //리스트에 추가하기
+            do
+            {
+                val eid = cursor.getInt(0)
+                val ename = cursor.getString(1)
+                val met = cursor.getDouble(2)
+
+                list.add(Exercise(eid, ename, met))
+            }while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+
+        return list
+    }
 }

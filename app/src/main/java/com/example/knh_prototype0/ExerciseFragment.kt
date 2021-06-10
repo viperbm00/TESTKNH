@@ -31,9 +31,9 @@ class ExerciseFragment : Fragment() {
     var binding : FragmentExerciseBinding?= null
 
     //DB에서 가지고 온 운동 정보들.
-    val eArrayList = ArrayList<Exercise>()
+    var eArrayList = ArrayList<Exercise>()
     //AutoTextComplement에 쓰일 운동 이름 리스트
-    val enameArrayList = ArrayList<String>()
+    var enameArrayList = ArrayList<String>()
 
     //AutoCompleteTextView의 어댑터
     lateinit var act_adapter : ArrayAdapter<String>
@@ -63,7 +63,7 @@ class ExerciseFragment : Fragment() {
         init()
         initRecyclerView(nowDate)
 
-        getjson()
+        //getjson()
     }
 
     override fun onDestroyView() {
@@ -172,8 +172,9 @@ class ExerciseFragment : Fragment() {
             dbfile.parentFile.mkdir()
         }
 
-        if(!dbfile.exists()) {
-            val file = resources.openRawResource(R.raw.)
+        if(!dbfile.exists())
+        {
+            val file = resources.openRawResource(com.example.knh_prototype0.R.raw.exercise)
             val fileSize = file.available()
             val buffer = ByteArray(fileSize)
 
@@ -185,6 +186,14 @@ class ExerciseFragment : Fragment() {
             output.write(buffer)
             output.close()
         }
+
+        eArrayList = ERDBHelper.getAllExercise()
+
+        for(item in eArrayList)
+        {
+            enameArrayList.add(item.ename)
+        }
+
 
     }
 
