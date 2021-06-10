@@ -10,7 +10,7 @@
     <!-->반드시 class name을 넣어야한다!!!!!!!!!<-->
     <fragment
         android:id="@+id/nfFragment"
-        android:name="com.example.knh_prototype0.NutritionFactsFragment"
+        android:name="com.example.knh_prototype0.ExerciseFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1" />

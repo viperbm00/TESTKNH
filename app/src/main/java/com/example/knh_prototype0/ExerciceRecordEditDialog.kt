@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 
 //운동 기록 항목을 누르면 팝업되는 다이얼로그.
-class ExcersiceRecordEditDialog(context : Context, val data : ExerciseRecord) {
+class ExerciceRecordEditDialog(context : Context, val data : ExerciseRecord) {
 
     private val dlg = Dialog(context)
     private lateinit var btnOK : Button

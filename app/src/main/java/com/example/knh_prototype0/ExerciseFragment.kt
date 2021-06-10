@@ -20,6 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import org.jsoup.Jsoup
+import java.io.FileOutputStream
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -164,17 +165,15 @@ class ExerciseFragment : Fragment() {
     {
         ERDBHelper = ExerciseDBHelper(requireActivity())
 
-        val dbfile = requireActivity().getDatabasePath("Exercise.db")
+        val dbfile = requireActivity().getDatabasePath("exercise.db")
 
         if(!dbfile.parentFile.exists())
         {
             dbfile.parentFile.mkdir()
         }
 
-        /*
-        if(!dbfile.exists())
-        {
-            val file = resources.openRawResource(R.raw)
+        if(!dbfile.exists()) {
+            val file = resources.openRawResource(R.raw.)
             val fileSize = file.available()
             val buffer = ByteArray(fileSize)
 
@@ -186,7 +185,6 @@ class ExerciseFragment : Fragment() {
             output.write(buffer)
             output.close()
         }
-         */
 
     }
 
@@ -206,8 +204,8 @@ class ExerciseFragment : Fragment() {
                     data: ExerciseRecord,
                     position: Int
                 ) {
-                    val dlg = ExcersiceRecordEditDialog(requireActivity(), data)
-                    dlg.listener = object : ExcersiceRecordEditDialog.OKClickedListener {
+                    val dlg = ExerciceRecordEditDialog(requireActivity(), data)
+                    dlg.listener = object : ExerciceRecordEditDialog.OKClickedListener {
                         override fun onOKClicked(eweightText: EditText, etimeText: EditText) {
                             er_adapter.items[position].weight = eweightText.text.toString().toInt()
                             er_adapter.items[position].etime = etimeText.text.toString().toInt()

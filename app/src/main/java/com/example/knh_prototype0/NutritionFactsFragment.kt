@@ -20,6 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
+import java.io.FileOutputStream
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -77,7 +78,6 @@ class NutritionFactsFragment : Fragment()
             dbfile.parentFile.mkdir()
         }
 
-        /*
         if(!dbfile.exists())
         {
             val file = resources.openRawResource(R.raw)
@@ -92,10 +92,6 @@ class NutritionFactsFragment : Fragment()
             output.write(buffer)
             output.close()
         }
-
-
-        NFDBHelper.getAllRecord()
-*/
     }
 
     val key = "ceffcf39a55843089167"

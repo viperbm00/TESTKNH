@@ -11,7 +11,7 @@ import java.time.LocalDate
 class ExerciseDBHelper(val context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION)
 {
     companion object{
-        val DB_NAME = "Exercise.db"
+        val DB_NAME = "exercise.db"
         val DB_VERSION = 1
         val TABLE_NAME_EXERCISERECORD = "exerciseRecord"
         val TABLE_NAME_EXERCISE = "exercise"
